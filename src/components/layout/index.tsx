@@ -6,7 +6,7 @@ function Layout() {
     return (
         <div>
             <Header />
-            <main className="max-w-7xl mx-auto">
+            <main>
                 <Outlet />
             </main>
             <Footer />
