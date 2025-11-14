@@ -51,6 +51,13 @@ const Header = () => {
                                 })
                             }}>İletişim</NavLink>
 
+                            <NavLink to="/products" className={({ isActive }) => {
+                                return classNames("py-2 px-2 font-semibold transition duration-300 rounded-xl", {
+                                    "border-b-3 border-[#118a7e] text-[#118a7e]": isActive,
+                                    "text-black border-0 hover:bg-[#118a7e] hover:text-white": !isActive
+                                })
+                            }}>Ürünler</NavLink>
+
                         </div>
                     </div>
                     {/* <!-- Secondary Nav --> */}
