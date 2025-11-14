@@ -5,7 +5,7 @@ function About() {
     return (
         <div className="bg-white">
             <header className="bg-[#C2EFD4] text-[#224f34] text-center py-12">
-                <h1 className="text-4xl font-bold mt-16">Hakkımızda</h1>
+                <h1 className="text-4xl font-bold">Hakkımızda</h1>
             </header>
 
             <div className="max-w-7xl mx-auto">

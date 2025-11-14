@@ -5,7 +5,7 @@ function MainHero() {
         <section className="bg-[#C2EFD4] px-4 py-24">
             <div className="lg:flex mx-auto max-w-7xl text-center lg:text-left lg:justify-between items-center">
                 <div className="mb-10 lg:mb-0 mx-auto lg:mx-0 lg:w-140">
-                    <h1 className="text-[#224f34] text-[86px] font-bold font-['Rufina']">Uygun Fiyatlı Ürün Satışı</h1>
+                    <h1 className="text-[#224f34] text-4xl md:text-[4rem] lg:text-[4.5rem] font-bold font-['Rufina']">Uygun Fiyatlı Ürün Satışı</h1>
                     <p className="mt-5 mb-12 text-[#267d49] text-2xl font-medium font-['Poppins'] leading-[50px]">
                         Piyasanın alt fiyatına ürünlerinizi tedarik edebilirsiniz
                     </p>

@@ -99,7 +99,7 @@ const Header = () => {
                     </div>
                     {/* <!-- Mobile menu button --> */}
                     <div className="md:hidden flex items-center">
-                        <button onClick={toggle} className="outline-none mobile-menu-button">
+                        <button onClick={toggle} className="outline-none mobile-menu-button cursor-pointer">
                             <i className="fas fa-bars text-gray-500 text-xl"></i>
                         </button>
                     </div>
