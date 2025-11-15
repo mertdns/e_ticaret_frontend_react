@@ -146,6 +146,16 @@ const Header = () => {
                     }} > İletişim</NavLink>
                     </li>
 
+                    <li><NavLink to="/products" className={({ isActive }) => {
+                        return classNames("block text-sm px-2 py-4 transition duration-300",
+                            {
+                                "text-white bg-[#118a7e]": isActive,
+                                "text-black bg-white hover:bg-[#118a7e] hover:text-white": !isActive
+                            }
+                        )
+                    }} > Ürünler</NavLink>
+                    </li>
+
                     <li>
                         <NavLink to="/login" className={({ isActive }) => {
                             return classNames("!border-1 my-2 outline-0 rounded-full duration-200 cursor-pointer flex justify-center",
