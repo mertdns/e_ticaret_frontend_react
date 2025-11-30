@@ -1,10 +1,11 @@
 import { Link } from "react-router";
-import productsData from "../../data/productData.json";
 import type { ProductType } from "../../types/product";
+import {  useSelector } from "react-redux";
+import type { RootState } from "../../store/store";
 
 export default function Products() {
 
-    const data: Array<ProductType> = productsData;
+    const data : Array<ProductType> = useSelector((state : RootState) => state.product.Products);
 
     console.log(data);
 

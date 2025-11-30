@@ -7,8 +7,17 @@ import Register from "./pages/Register";
 import Contact from "./pages/Contact";
 import Products from "./pages/Products";
 import ProductDetail from "./pages/ProductDetail";
+import { useEffect } from "react";
+import { getAllProducts } from "./store/productSlice";
+import { useDispatch } from "react-redux";
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllProducts());
+  },[dispatch])
+
   return (
     <Routes>
       <Route element={<Layout />}>
