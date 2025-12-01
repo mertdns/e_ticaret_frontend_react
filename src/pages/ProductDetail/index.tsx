@@ -1,24 +1,34 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
-import type { ProductType } from "../../types/product";
+import type { BasketProductType, ProductType } from "../../types/product";
 import { FaPlus } from "react-icons/fa";
 import { FiMinus } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../store/store";
-import { getProductById } from "../../store/productSlice";
+import { addBasketProduct, getProductById } from "../../store/productSlice";
 
 function ProductDetail() {
     // 1. ✅ Redux state'ini bileşenin en üst seviyesinde çekin
-    const activeProduct = useSelector((state: RootState) => state.product.activeProduct);
+    const activeProduct : ProductType | null = useSelector((state: RootState) => state.product.activeProduct);
     const IsLoadProducts = useSelector((state : RootState) => state.product.IsLoad);
     const productFound = activeProduct !== null; // productFound state'i artık useSelector'dan türetilebilir.
 
     const [productCount, setProductCount] = useState<number>(1); // Sepet sayacını genellikle 1'den başlatmak daha mantıklıdır.
 
     const ImagesDiv = useRef<HTMLDivElement>(null);
-    const dispatch = useDispatch<any>(); // TypeScript için uygun dispatch tipi
+    const dispatch = useDispatch(); 
 
     const { id } = useParams();
+
+    const addProductToBasket = () => {
+        console.log(activeProduct);
+        const obj : BasketProductType = {
+            id: Number(activeProduct?.id),
+            count:productCount
+        }
+
+        dispatch(addBasketProduct(obj));
+    }
 
     useEffect(() => {
         // ID değiştiğinde ürünü Redux store'a yükle.
@@ -98,7 +108,7 @@ function ProductDetail() {
                     <div className="w-full md:w-1/2 px-4 mb-8" ref={ImagesDiv}>
                         {/* activeProduct'ın varlığı artık if (!productFound) kontrolü ile garanti edildi. */}
                         <img alt="Product" src={product.productImageUrl}
-                            className="w-full h-120 rounded-lg shadow-md mb-4" id="mainImage" />
+                            className="w-full h-70 sm:h-80 md:h-100 lg:h-130 rounded-lg shadow-md mb-4" id="mainImage" />
                         <div className="flex gap-4 py-4 justify-center overflow-x-auto">
                             {
                                 product.bottomImagesUrl.map((image: string, index: number) => (
@@ -136,6 +146,7 @@ function ProductDetail() {
 
                         <div className="flex space-x-4 mb-6">
                             <button
+                                onClick={addProductToBasket}
                                 className="bg-green-600 flex gap-2 items-center text-white px-6 py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                                 {/* ... (Sepete Ekle Butonu) */}
                                 Sepete Ekle

@@ -21,5 +21,6 @@ export interface ProductSliceType{
     Products: Array<ProductType>,
     BasketPorducts: Array<BasketProductType>,
     activeProduct: ProductType | null,
-    IsLoad: boolean
+    IsLoad: boolean,
+    TotalPrice: number
 }

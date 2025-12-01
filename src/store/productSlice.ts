@@ -1,13 +1,14 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import type { BasketProductType, ProductSliceType } from "../types/product";
+import { createAsyncThunk, createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import type { BasketProductType, ProductSliceType, ProductType } from "../types/product";
 import productData from "../data/productData.json";
 
 
 const initialState: ProductSliceType = {
     Products: [],
     BasketPorducts: [],
-    activeProduct:null,
-    IsLoad: false
+    activeProduct: null,
+    IsLoad: false,
+    TotalPrice: -1
 }
 
 const productSlice = createSlice({
@@ -29,10 +30,20 @@ const productSlice = createSlice({
             else {
                 state.BasketPorducts.push(action.payload);
             }
+        },
+        CalculateToTotalPrice(state: ProductSliceType, action: PayloadAction<any>) {
+            state.TotalPrice = 0;
+            action.payload.map((el: any) => {
+                state.TotalPrice += Number(el.price.substr(1)) * el.count;
+            })
+        },
+        deleteProductInBasket(state : ProductSliceType , action : PayloadAction<number>){
+            state.BasketPorducts = state.BasketPorducts.filter(el => el.id !== action.payload);
+
         }
-    }
+    },
 })
 
-export const { getAllProducts, addBasketProduct , getProductById } = productSlice.actions;
+export const { getAllProducts, addBasketProduct, getProductById, CalculateToTotalPrice, deleteProductInBasket } = productSlice.actions;
 
 export default productSlice.reducer;
