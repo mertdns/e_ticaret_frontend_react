@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
 import type { BasketProductType, ProductType } from "../../types/product";
 import { FaPlus } from "react-icons/fa";
@@ -6,28 +6,44 @@ import { FiMinus } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../store/store";
 import { addBasketProduct, getProductById } from "../../store/productSlice";
+import Snackbar from "@mui/material/Snackbar";
+import Button from "@mui/material/Button";
 
 function ProductDetail() {
     // 1. ✅ Redux state'ini bileşenin en üst seviyesinde çekin
-    const activeProduct : ProductType | null = useSelector((state: RootState) => state.product.activeProduct);
-    const IsLoadProducts = useSelector((state : RootState) => state.product.IsLoad);
+    const activeProduct: ProductType | null = useSelector((state: RootState) => state.product.activeProduct);
+    const IsLoadProducts = useSelector((state: RootState) => state.product.IsLoad);
     const productFound = activeProduct !== null; // productFound state'i artık useSelector'dan türetilebilir.
 
     const [productCount, setProductCount] = useState<number>(1); // Sepet sayacını genellikle 1'den başlatmak daha mantıklıdır.
+    const [open, setOpen] = useState<boolean>(false);
 
     const ImagesDiv = useRef<HTMLDivElement>(null);
-    const dispatch = useDispatch(); 
+    const dispatch = useDispatch();
 
     const { id } = useParams();
 
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const action = (
+        <Fragment>
+            <Button color="secondary" size="small" onClick={handleClose}>
+                Tamam
+            </Button>
+        </Fragment>
+    );
+
     const addProductToBasket = () => {
         console.log(activeProduct);
-        const obj : BasketProductType = {
+        const obj: BasketProductType = {
             id: Number(activeProduct?.id),
-            count:productCount
+            count: productCount
         }
 
         dispatch(addBasketProduct(obj));
+        setOpen(true);
     }
 
     useEffect(() => {
@@ -37,7 +53,7 @@ function ProductDetail() {
             // Redux Thunk kullanıldığı varsayılarak
             IsLoadProducts && dispatch(getProductById(Number(id)));
         }
-    }, [id, dispatch , IsLoadProducts]) // dispatch, useEffect bağımlılığı olarak eklenmelidir.
+    }, [id, dispatch, IsLoadProducts]) // dispatch, useEffect bağımlılığı olarak eklenmelidir.
 
     // 3. ✅ activeProduct değiştiğinde resim opacity ayarını yapın.
     useEffect(() => {
@@ -156,6 +172,14 @@ function ProductDetail() {
                     </div>
                 </div>
             </div>
+            <Snackbar
+                open={open}
+                autoHideDuration={3000}
+                onClose={handleClose}
+                message="Ürün sepete eklendi."
+                action={action}
+                anchorOrigin={{ vertical: 'top', horizontal : "center" }}
+            />
         </div>
     )
 }

@@ -242,7 +242,7 @@ const Header = () => {
                                 <section className="flex items-center justify-between my-3">
                                     <div className="flex items-center gap-x-4">
                                         <div>
-                                            <img className="w-15 h-10 rounded-xl" src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080" alt="product" />
+                                            <img className="w-15 h-10 rounded-xl" src={item.productImageUrl} alt="product" />
                                         </div>
                                         <div>
                                             <h1>{item.title}</h1>
