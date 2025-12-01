@@ -238,7 +238,7 @@ const Header = () => {
                     </div>
                     <div className="max-h-90/100 overflow-y-auto flex-1">
                         {
-                            drawerPorducts.length > 0 && drawerPorducts.map((item: any, index: any) => (
+                            drawerPorducts.length > 0 && drawerPorducts.map((item: any) => (
                                 <section className="flex items-center justify-between my-3">
                                     <div className="flex items-center gap-x-4">
                                         <div>

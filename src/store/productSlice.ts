@@ -1,5 +1,5 @@
-import { createAsyncThunk, createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import type { BasketProductType, ProductSliceType, ProductType } from "../types/product";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import type { BasketProductType, ProductSliceType } from "../types/product";
 import productData from "../data/productData.json";
 
 
