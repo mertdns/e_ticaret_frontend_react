@@ -10,6 +10,8 @@ import ProductDetail from "./pages/ProductDetail";
 import { useEffect } from "react";
 import { getAllProducts } from "./store/productSlice";
 import { useDispatch } from "react-redux";
+import Search from "./pages/Search";
+import Profile from "./pages/Profile";
 
 function App() {
   const dispatch = useDispatch();
@@ -26,6 +28,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/search" element={<Search />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/products" element={<Products />} />
         <Route path="/product/:id" element={<ProductDetail />} />
       </Route>

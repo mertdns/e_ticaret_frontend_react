@@ -97,10 +97,10 @@ const Header = () => {
                         </div>
                         {/* <!-- Secondary Nav --> */}
                         <div className="flex items-center space-x-3">
-                            <NavLink to="#" className="py-2 px-2 text-gray-500 hover:bg-gray-600 hover:text-white transition duration-300">
+                            <NavLink to="/search" className="py-2 px-2 text-gray-500 hover:bg-gray-600 hover:text-white transition duration-300">
                                 <i className="fas fa-search"></i>
                             </NavLink>
-                            <NavLink to="#" className="py-2 px-2 text-gray-500 hover:bg-gray-600 hover:text-white transition duration-300">
+                            <NavLink to="/profile" className="py-2 px-2 text-gray-500 hover:bg-gray-600 hover:text-white transition duration-300">
                                 <i className="fas fa-user"></i>
                             </NavLink>
                             <NavLink onClick={toggleDrawer(true)} to="#" className="py-2 px-2 text-gray-500 hover:bg-gray-600 hover:text-white transition duration-300 relative">
@@ -236,7 +236,7 @@ const Header = () => {
                     <div onClick={() => setOpen(false)} className="ml-auto font-bold text-3xl cursor-pointer">
                         <IoMdClose />
                     </div>
-                    <div className="max-h-90/100 overflow-y-auto flex-1">
+                    <div className="max-h-90/100 w-90/100 md:w-full overflow-y-auto flex-1">
                         {
                             drawerPorducts.length > 0 && drawerPorducts.map((item: any) => (
                                 <section className="flex items-center justify-between my-3">
