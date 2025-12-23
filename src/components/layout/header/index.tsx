@@ -7,6 +7,12 @@ import { IoMdClose } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../../store/store";
 import { CalculateToTotalPrice, deleteProductInBasket } from "../../../store/productSlice";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogActions from "@mui/material/DialogActions";
+import Button from "@mui/material/Button";
 
 
 
@@ -14,13 +20,26 @@ const Header = () => {
     const location = useLocation();
     const mobileMenu = useRef<HTMLDivElement>(null);
     const [open, setOpen] = useState<boolean>(false);
+    const [selectedProductId, setSelectedProductId] = useState<number | null>(null);
+
+    const [openModal, setOpenModal] = useState<boolean>(false);
+
     const [drawerPorducts, setDrawerPorducts] = useState<any>([]);
 
     const products = useSelector((state: RootState) => state.product.Products);
     const basket = useSelector((state: RootState) => state.product.BasketPorducts);
-    const totalPrice = useSelector((state : RootState) => state.product.TotalPrice);
+    const totalPrice = useSelector((state: RootState) => state.product.TotalPrice);
 
     const dispatch = useDispatch();
+
+    const handleClickOpen = (id: number) => {
+        setOpenModal(true);
+        setSelectedProductId(id);
+    };
+
+    const handleClose = () => {
+        setOpenModal(false);
+    };
 
     const toggle = () => {
         mobileMenu.current?.classList.toggle("hidden");
@@ -231,6 +250,7 @@ const Header = () => {
                 </div>
 
             </nav>
+
             <Drawer anchor="right" open={open} onClose={toggleDrawer(false)}>
                 <div className="px-4 flex flex-col h-full justify-between py-4">
                     <div onClick={() => setOpen(false)} className="ml-auto font-bold text-3xl cursor-pointer">
@@ -252,7 +272,7 @@ const Header = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="text-red-700 font-bold text-xl cursor-pointer" onClick={() => dispatch(deleteProductInBasket(item.id))}>
+                                    <div className="text-red-700 font-bold text-xl cursor-pointer" onClick={() => handleClickOpen(item.id)}>
                                         <MdDelete />
                                     </div>
                                 </section>
@@ -266,6 +286,35 @@ const Header = () => {
                     </div>
                 </div>
             </Drawer>
+
+            {/* Delete Product Modal */}
+            <Dialog
+                open={openModal}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <div className="bg-gray-900 text-white">
+                    <DialogTitle id="alert-dialog-title">
+                        {"Ürünü sepetten silmek istediğinize emin misiniz?"}
+                    </DialogTitle>
+                    <DialogContent>
+                        <DialogContentText className="!text-red-700" id="alert-dialog-description">
+                            Bu işlem geri alınamaz.
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleClose}>İptal</Button>
+                        <Button onClick={() => {
+                            handleClose();
+                            dispatch(deleteProductInBasket(selectedProductId));
+                            setSelectedProductId(null);
+                        }} autoFocus>
+                            Onayla
+                        </Button>
+                    </DialogActions>
+                </div>
+            </Dialog>
         </div>
     )
 }

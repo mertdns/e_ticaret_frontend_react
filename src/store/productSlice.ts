@@ -38,7 +38,7 @@ const productSlice = createSlice({
                 state.TotalPrice += Number(el.price.substr(1)) * el.count;
             })
         },
-        deleteProductInBasket(state: ProductSliceType, action: PayloadAction<number>) {
+        deleteProductInBasket(state: ProductSliceType, action: PayloadAction<number | null>) {
             state.BasketPorducts = state.BasketPorducts.filter(el => el.id !== action.payload);
         },
         fillFilteredProducts(state: ProductSliceType, action: PayloadAction<string>) {
